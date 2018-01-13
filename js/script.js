@@ -2,36 +2,29 @@
  * JS
  */
 
-class Dog {
-  constructor(name, breed) {
+/* eslint-disable */
+
+class MovieCollection extends Array {
+  constructor(name, ...items) {
+    super(...items);
     this.name = name;
-    this.breed = breed;
   }
 
-  bark() {
-    console.log(`Bark bark! My name is ${this.name}`);
+  add(movie) {
+    this.push(movie);
   }
 
-  getBreed() {
-    console.log(`My breed is ${this.breed}`);
-  }
-
-  static info() {
-    console.log('A dog is better than a cat by 10 times');
-  }
-
-  get description() {
-    return `${this.name} is a ${this.breed} type of dog`;
-  }
-
-  set nicknames(value) {
-    this.nick = value.trim();
-  }
-
-  get nicknames() {
-    return this.nick.toUpperCase();
+  topRated(limit = 10) {
+    return this.sort((a, b) => (a.stars > b.stars ? -1 : 1)).slice(0, limit);
   }
 }
 
-const snickers = new Dog('Snickers', 'King Charles');
-const sunny = new Dog('Sunny', 'Golden Doodle');
+const movies = new MovieCollection('Wes\'s Fav Movies',
+  { name: 'Bee Movie', stars: 10 },
+  { name: 'Star Wars Trek', stars: 1 },
+  { name: 'Virgin Suicides', stars: 7 },
+  { name: 'King of the Road', stars: 8 },
+);
+
+movies.add({ name: 'Titanic', stars: 5 });
+
